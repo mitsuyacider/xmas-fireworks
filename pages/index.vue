@@ -1,11 +1,28 @@
 <template>
   <div class="container">
-    <h1>Merry X'mas</h1>
+    <h1>Merry X'mas</h1>    
+    <h1>Clap your hands!!</h1>    
+    <h1>Then something will happen!!</h1>    
     <div class="xmax-container fixed-top w-100" >
       <div 
-        id="canvas" 
+        id="p5Canvas" 
         ref="canvas" 
         class="d-flex justify-content-center" />      
+    </div>    
+    <div 
+      class="human-container" 
+      style="d-flex justify-content-center">
+      <video 
+        id="video" 
+        width="640px" 
+        height="480px" 
+        style="position:absolute;" />
+      <!-- <canvas :class="{show : $store.state.isCameraPreview }" id="canvas" width="640px" height="480px" style="position:absolute;"></canvas> -->
+      <canvas 
+        id="canvas" 
+        width="640px" 
+        height="480px" 
+        style="position:absolute;" />
     </div>    
   </div>
 </template>
@@ -13,6 +30,7 @@
 <script>
 if (process.browser) {
   var p5Canvas = require('@/js/p5Canvas.js')
+  var posenet = require('@/js/PosenetSample.js')
 }
 
 export default {
@@ -22,14 +40,41 @@ export default {
     }
   },
   mounted () {
-    // tetris.setDelegate(this.callbackOnTetris)
+    // navigator.getUserMedia = navigator.getUserMedia || 
+    //                           navigator.webkitGetUserMedia || 
+    //                           navigator.mozGetUserMedia;
+
+    // navigator.getUserMedia(
+    //   { video: true, audio: false },
+    //   function(stream) {
+    //     var v = document.getElementById('myvideo');
+    //     v.src = URL.createObjectURL(stream);
+    //   },
+    //   function(error) {
+    //     console.log(error);
+    //   }
+    // );       
+      // tetris.setDelegate(this.callbackOnTetris)
+
+    posenet.setDelegate(this.callbackDelegate);
+    posenet.startPosenet();    
+
     const P5 = require('p5')
     this.p5js = new P5(p5Canvas.mainCanvas)
+  },
+  methods: {
+    callbackDelegate(keypoints, score) {
+      p5Canvas.setKeyPoints(keypoints);
+    }
   }
 }
 </script>
 
 <style>
+
+h1 {
+  color: red;
+}
 
 body {
   /* 画像ファイルの指定 */
@@ -44,6 +89,34 @@ body {
   background-size: cover;   
   /* 背景画像が読み込まれる前に表示される背景のカラー */
   background-color: #464646;
+}
+
+video {
+  /* opacity: .65; */
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  /* width: 100%;
+  height: 100%; */
+}
+
+.show {
+  opacity:.65;
+}
+
+.human-container canvas {
+  opacity: 0;
+  /* opacity:.65; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
 }
 
 </style>
