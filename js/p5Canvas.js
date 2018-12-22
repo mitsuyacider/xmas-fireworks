@@ -1,5 +1,5 @@
 import Particle from '@/js/Particle'
-
+import Firework from '@/js/Firework'
 let p5;
 let angle;
 let speed;
@@ -8,6 +8,8 @@ let snowNum = 500;
 let human;
 let humanPos;
 let frontImage;
+let fireworks = [];
+
 export function mainCanvas(_p5) {
 	
 	p5 = _p5
@@ -48,19 +50,41 @@ export function mainCanvas(_p5) {
 		}	
 		
 		humanPos = p5.createVector(0, p5.height / 2);
+
+		p5.stroke(255);
+		p5.strokeWeight(4);
 	}
 
 	p5.draw = _ => {
 		p5.clear();
-
+		p5.colorMode(p5.RGB);
 		drawSnow(true);
 		p5.image(human, humanPos.x, humanPos.y);
+		drawFireworks()
+
+		p5.colorMode(p5.RGB);
 		drawSnow(false);
 		p5.image(frontImage, 0, 0, p5.width, p5.height);
 
 		updatePosition();
+		
 	}
 }  
+
+function drawFireworks() {
+	if (p5.random(1) < 0.03) {
+		fireworks.push(new Firework(p5));
+	}
+		
+	for (var i = fireworks.length - 1; i >= 0; i--) {
+		fireworks[i].update();
+		fireworks[i].show();
+		
+		if (fireworks[i].done()) {
+			fireworks.splice(i, 1);
+		}
+	}
+}
 
 function drawSnow(isFront) {
 	if (isFront) {
@@ -95,4 +119,7 @@ export function setKeyPoints (keypoints) {
 	const y = p5.map(keypoints[0].position.y, 0, 480, 0, p5.height)
 	humanPos.x = x
 	humanPos.y = p5.height / 5 + y;
+	if (humanPos.y < p5.height - p5.height / 2) {
+		humanPos.y = p5.height - p5.height / 2;
+	}
 }
