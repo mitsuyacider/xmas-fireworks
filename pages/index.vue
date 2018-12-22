@@ -1,66 +1,49 @@
 <template>
-  <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        xmas-fireworks
-      </h1>
-      <h2 class="subtitle">
-        My sublime Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+  <div class="container">
+    <h1>Merry X'mas</h1>
+    <div class="xmax-container" >
+      <div 
+        id="canvas" 
+        ref="canvas" 
+        class="d-flex justify-content-center" />      
+    </div>    
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+if (process.browser) {
+  var p5Canvas = require('@/js/p5Canvas.js')
+}
 
 export default {
-  components: {
-    Logo
+  data () {
+    return {
+      p5js: {}
+    }
+  },
+  mounted () {
+    // tetris.setDelegate(this.callbackOnTetris)
+    const P5 = require('p5')
+    this.p5js = new P5(p5Canvas.mainCanvas)
   }
 }
 </script>
 
 <style>
 
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+body {
+  /* 画像ファイルの指定 */
+  background-image: url(../assets/img/background.png);   
+  /* 画像を常に天地左右の中央に配置 */
+  background-position: center center;   
+  /* 画像をタイル状に繰り返し表示しない */
+  background-repeat: no-repeat;   
+  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
+  background-attachment: fixed;   
+  /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+  background-size: cover;   
+  /* 背景画像が読み込まれる前に表示される背景のカラー */
+  background-color: #464646;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
