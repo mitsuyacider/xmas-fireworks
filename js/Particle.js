@@ -13,6 +13,7 @@ export default class Particle {
 		this.amplitude = 0;
 		this.wavingSpeed = 0;
 		this.angle = 0;	
+		this.isOver = false;
 	}
 	
 	drawParticle () {
@@ -27,12 +28,20 @@ export default class Particle {
 	}
 	
 	updatePosition () {
+		
+		if (this.isOver) return;
+
 		this.x = this.x + this.p5.sin(this.p5.radians(this.angle)) * this.amplitude;
 		this.y += this.speedY;
-		if (this.y + this.size > this.p5.height) {
-			this.y = -this.size;
+		if (this.y > this.p5.height + this.size) {
+			// this.y = -this.size;
+			this.isOver = true;
 		}
 		
 		this.angle += this.wavingSpeed;
+	}
+
+	done () {
+		return this.isOver;
 	}
 }

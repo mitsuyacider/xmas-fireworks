@@ -108,8 +108,8 @@ video {
 }
 
 .human-container canvas {
-  opacity: 0;
-  /* opacity:.65; */
+  /* opacity: 0; */
+  opacity:.65;
   top: 0;
   left: 0;
   right: 0;
