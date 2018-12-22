@@ -1,14 +1,19 @@
 import Particle from '@/js/Particle'
 import Firework from '@/js/Firework'
+
+const HANDS_THRESHOLD = 70
+const MAX_SNOW_NUM = 250;
 let p5;
 let angle;
 let speed;
-let particleStore;
+let particleBack;
+let particleFront;
 let snowNum = 500;
 let human;
 let humanPos;
 let frontImage;
 let fireworks = [];
+
 
 export function mainCanvas(_p5) {
 	
@@ -33,23 +38,15 @@ export function mainCanvas(_p5) {
 
 		angle = 0;
 		speed = 0.5;
-		particleStore = [];
-		
-		// // 雪の数だけパーティクルを生成する
-		// for (var i = 0; i < snowNum; i++) {
-		// 	var p = new Particle(p5);
-		// 	p.size = p5.random(10, 20);
-		// 	p.x = p5.random(0, p5.width);
-		// 	p.y = p5.random(0, p5.height);
-		// 	p.speedY = p5.random(1, 5);
-		// 	p.amplitude = p5.random(0.1, 2);
-		// 	p.wavingSpeed = p5.random(0.1, 4);
-		// 	p.angle = 0;
-			
-		// 	particleStore.push(p);
-		// }	
-		
+		particleFront = [];
+		particleBack = []
+
 		humanPos = p5.createVector(0, p5.height / 2);
+
+		// for (var i = 0; i < MAX_SNOW_NUM / 2; i++) {
+		// 	addSnow(particleBack);
+		// 	// addSnow(particleFront);
+		// }
 
 		p5.stroke(255);
 		p5.strokeWeight(4);
@@ -58,20 +55,24 @@ export function mainCanvas(_p5) {
 	p5.draw = _ => {
 		p5.clear();
 		p5.colorMode(p5.RGB);
-		drawSnow(true);
-		// p5.image(human, humanPos.x, humanPos.y);
+		drawSnow(particleBack);
+		p5.image(human, humanPos.x, humanPos.y);
 
-		// p5.colorMode(p5.RGB);
-		drawSnow(false);
-		// p5.image(frontImage, 0, 0, p5.width, p5.height);
-		// drawFireworks()
+		p5.colorMode(p5.RGB);
+		drawParticle(particleFront);
+		p5.image(frontImage, 0, 0, p5.width, p5.height);
+		drawFireworks()
 
 		updatePosition();
 		
 	}
 }  
 
-function addSnow() {
+function addSnow(store) {
+	if (store.length > MAX_SNOW_NUM) {
+		return
+	}
+
 	var p = new Particle(p5);
 	p.size = p5.random(10, 20);
 	p.x = p5.random(0, p5.width);
@@ -79,16 +80,13 @@ function addSnow() {
 	p.speedY = p5.random(1, 5);
 	p.amplitude = p5.random(0.1, 2);
 	p.wavingSpeed = p5.random(0.1, 4);
-	p.angle = 0;
-	
-	particleStore.push(p);
+	p.angle = 0;	
+	p.rotateSpeed = p5.random(-6, 6);
+
+	store.push(p)
 }
 
-function drawFireworks() {
-	if (p5.random(1) < 0.03) {
-		fireworks.push(new Firework(p5));
-	}
-		
+function drawFireworks() {		
 	for (var i = fireworks.length - 1; i >= 0; i--) {
 		fireworks[i].update();
 		fireworks[i].show();
@@ -99,15 +97,28 @@ function drawFireworks() {
 	}
 }
 
-function drawSnow(isFront) {
+function drawSnow(store) {
 	// 背景の雪(半分)を描画
-	for (var i = 0; i < particleStore.length; i++) {
+	for (var i = 0; i < store.length; i++) {
 		// 一つのparticleを取り出す
-		var p = particleStore[i];
+		var p = store[i];
+		p.updatePosition();
+		p.drawSnow();
+		if (p.done()) {
+			store.splice(i, 1);
+		}
+	}	
+}
+
+function drawParticle(store) {
+	// 背景の雪(半分)を描画
+	for (var i = 0; i < store.length; i++) {
+		// 一つのparticleを取り出す
+		var p = store[i];
 		p.updatePosition();
 		p.drawParticle();
 		if (p.done()) {
-			particleStore.splice(i, 1);
+			store.splice(i, 1);
 		}
 	}	
 }
@@ -159,8 +170,11 @@ export function setKeyPoints (keypoints) {
 	}
 
 	const distance = p5.dist(left.x, left.y, right.x, right.y)
-	if (distance < 60) {
+	if (distance < HANDS_THRESHOLD) {
 		console.log(left.x + " / y: " + left.y)
-		addSnow()
+		addSnow(particleFront)
+		addSnow(particleBack)
+
+		fireworks.push(new Firework(p5));
 	}
 }

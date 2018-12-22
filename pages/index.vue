@@ -1,8 +1,10 @@
 <template>
-  <div class="container">
-    <h1>Merry X'mas</h1>    
-    <h1>Clap your hands!!</h1>    
-    <h1>Then something will happen!!</h1>    
+  <div class="main-container">
+    <div class="main-container__message">
+      <h1>Merry X'mas</h1>    
+      <h1>手をたたいてみよう!!</h1>    
+      <h1>なにかが起こるよ!!</h1>    
+    </div> 
     <div class="xmax-container fixed-top w-100" >
       <div 
         id="p5Canvas" 
@@ -10,7 +12,7 @@
         class="d-flex justify-content-center" />      
     </div>    
     <div 
-      class="human-container" 
+      class="main-container__posenet" 
       style="d-flex justify-content-center">
       <video 
         id="video" 
@@ -72,6 +74,11 @@ export default {
 
 <style>
 
+.main-container__message {
+  margin-top: 100px;
+  margin-left: 100px;
+}
+
 h1 {
   color: red;
 }
@@ -107,9 +114,9 @@ video {
   opacity:.65;
 }
 
-.human-container canvas {
-  /* opacity: 0; */
-  opacity:.65;
+.main-container__posenet canvas {
+  opacity: 0;
+  /* opacity:.65; */
   top: 0;
   left: 0;
   right: 0;
