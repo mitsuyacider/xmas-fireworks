@@ -17,7 +17,7 @@ export default class Particle {
 	
 	drawParticle () {
 		this.p5.push();
-		this.p5.ellipseMode(CENTER);
+		this.p5.ellipseMode(this.p5.CENTER);
 		this.p5.noStroke();
 		for (var i = 1; i < 3 * 5; i += 5) {			
 			this.p5.fill(this.red, this.green, this.blue, 100);

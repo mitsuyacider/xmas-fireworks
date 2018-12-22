@@ -45,6 +45,31 @@ export function mainCanvas(_p5) {
 	}
 
 	p5.draw = _ => {
-		p5.background(60, 46, 64, 0)
+		p5.clear();
+		drawSnow();
 	}
 }  
+
+function drawSnow() {
+	// 背景の雪(半分)を描画
+	for (var i = 0; i < snowNum / 2; i++) {
+		// 一つのparticleを取り出す
+		var p = particleStore[i];
+		p.updatePosition();
+		p.drawParticle();
+	}	
+	
+	// 背景の雪(残り半分)を描画
+	for (var i = snowNum / 2; i < snowNum; i++) {
+		// 一つのparticleを取り出す
+		var p = particleStore[i];
+		p.updatePosition();
+		p.drawParticle();
+	}
+
+	angle += speed;
+
+	if (angle > 5 || angle < -5) {
+		speed *= -1;
+	}	
+}

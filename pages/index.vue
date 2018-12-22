@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Merry X'mas</h1>
-    <div class="xmax-container" >
+    <div class="xmax-container fixed-top w-100" >
       <div 
         id="canvas" 
         ref="canvas" 
