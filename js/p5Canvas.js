@@ -1,7 +1,7 @@
 import Particle from '@/js/Particle'
 import Firework from '@/js/Firework'
 
-const HANDS_THRESHOLD = 70
+const HANDS_THRESHOLD = 50
 const MAX_SNOW_NUM = 250;
 let p5;
 let angle;
@@ -13,6 +13,9 @@ let human;
 let humanPos;
 let frontImage;
 let fireworks = [];
+let bgImg;
+let whiteBgImg;
+
 
 
 export function mainCanvas(_p5) {
@@ -23,6 +26,8 @@ export function mainCanvas(_p5) {
 		// NOTE: staticフォルダから参照
 		human = p5.loadImage('img/human.png');
 		frontImage = p5.loadImage('img/front.png')
+		bgImg = p5.loadImage('img/background.png')
+		whiteBgImg = p5.loadImage('img/white.png')
 	}
 
 	p5.keyPressed = (keyCode) => {
@@ -55,6 +60,8 @@ export function mainCanvas(_p5) {
 	p5.draw = _ => {
 		p5.clear();
 		p5.colorMode(p5.RGB);
+		p5.image(bgImg, 0, 0, p5.width, p5.height);
+		// p5.image(whiteBgImg, 0, 0, p5.width, p5.height);
 		drawSnow(particleBack);
 		p5.image(human, humanPos.x, humanPos.y);
 
