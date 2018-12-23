@@ -1,10 +1,5 @@
 <template>
   <div class="main-container">
-    <div class="main-container__message">
-      <h1>Merry X'mas</h1>    
-      <h1>手をたたいてみよう!!</h1>    
-      <h1>なにかが起こるよ!!</h1>    
-    </div> 
     <div class="xmax-container fixed-top w-100" >
       <div 
         id="p5Canvas" 
@@ -25,7 +20,12 @@
         width="640px" 
         height="480px" 
         style="position:absolute;" />
-    </div>    
+    </div>   
+    <div class="main-container__message">
+      <h1>Merry X'mas🎉</h1>    
+      <h1>手をたたいてみよう!!</h1>    
+      <h1>なにかが起こるよ!!</h1>    
+    </div> 
   </div>
 </template>
 
@@ -73,7 +73,9 @@ export default {
 </script>
 
 <style>
-
+.xmax-container {
+  z-index: -1;
+}
 .main-container__message {
   margin-top: 100px;
   margin-left: 100px;
