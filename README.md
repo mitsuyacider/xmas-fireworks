@@ -19,6 +19,14 @@ $ npm run dev
 ## PERFORMANCE
 If you have great GPU, this sample might be by far faster because Tensorflow.js applies WebGL for calclation, which means depends on your GPU spec.
 
+Here is my PC spec. The framerate is around **15 fps** on single pose.
+|||
+|:-----------|:------------|
+|**PC**|MacBook Pro(Retina, 15-inch, Mid 2015)|
+|**processor**|2.2 GHz Intel Core i7|
+|**memory**|16 GB|
+|**graphics**|Intel Iris Pro 1536 MB|
+
 ---
 
 Game logic is inspired in [this code](https://github.com/CodingTrain/website/tree/master/CodingChallenges/CC_027_FireWorks). Thank you for sharing.
