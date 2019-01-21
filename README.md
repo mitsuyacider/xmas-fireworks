@@ -1,22 +1,25 @@
 # xmas-fireworks
+Sample image
+![サンプル](assets/img/sample.gif)
 
-> My sublime Nuxt.js project
+This is [demo](https://xmas-fireworks.herokuapp.com/)
 
-## Build Setup
-
+## HOW TO USE
+Just start with npm install & run.
 ``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn run dev
-
-# build for production and launch server
-$ yarn run build
-$ yarn start
-
-# generate static project
-$ yarn run generate
+$ npm install
+$ npm run dev
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+## HOW TO PLAY
+| MOVE | CLAP HANDS |
+|:-----------|:------------|
+| If you move between left and right, falling tetris block will follow with you.| Every time you clap your hands, fireworks will show up. |
+
+## PERFORMANCE
+If you have great GPU, this sample might be by far faster because Tensorflow.js applies WebGL for calclation, which means depends on your GPU spec.
+
+---
+
+Game logic is inspired in [this code](https://github.com/CodingTrain/website/tree/master/CodingChallenges/CC_027_FireWorks). Thank you for sharing.
+To detect human pose, this system introduce *Tensorflow.js* and reference [sample code](https://developers.gnavi.co.jp/entry/posenet/hasegawa).
