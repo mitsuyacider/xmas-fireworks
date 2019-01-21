@@ -23,8 +23,8 @@
     </div>   
     <div class="main-container__message">
       <h1>Merry X'mas🎉</h1>    
-      <h1>手をたたいてみよう!!</h1>    
-      <h1>なにかが起こるよ!!</h1>    
+      <h1>Let's Clap Your Hands!!</h1> 
+      <h1>Something will happen!!</h1>    
     </div> 
   </div>
 </template>
