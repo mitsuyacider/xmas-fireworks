@@ -14,7 +14,7 @@ $ npm run dev
 ## HOW TO PLAY
 | MOVE | CLAP HANDS |
 |:-----------|:------------|
-| If you move between left and right, falling tetris block will follow with you.| Every time you clap your hands, fireworks will show up. |
+| If you move between left and right, falling tetris block will follow with you.| Every time you clap your hands, fireworks and snows will show up. |
 
 ## PERFORMANCE
 If you have great GPU, this sample might be by far faster because Tensorflow.js applies WebGL for calclation, which means depends on your GPU spec.
